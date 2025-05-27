@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .register-container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+        .register-container h2 {
+            margin-bottom: 20px;
+        }
+        .register-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .register-container button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .register-container button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <form action="/register" id="register" method="post">
+            <h2>Register</h2>
+            <input type="text" id="name" placeholder="Enter your name" name="fullname" required>
+            <input type="email" id="Email" placeholder="Email" name="email" required>
+            <input type="password" id="password" placeholder="Password" name="password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" name="confirmpassword" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("register").addEventListener("submit", async function(event) {
+            event.preventDefault(); 
+
+            const fullname = document.getElementById("name").value;
+            const email = document.getElementById("Email").value;
+            const password = document.getElementById("password").value;
+            const confirmpassword = document.getElementById("confirmPassword").value;
+
+            const response = await fetch("/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ fullname, email, password, confirmpassword })
+            });
+
+            const result = await response.json();
+            alert(result.message); 
+        });
+    </script>
+</body>
+</html>
